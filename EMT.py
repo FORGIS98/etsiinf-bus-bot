@@ -1,13 +1,16 @@
 import requests
 import json
+import os
 
 url = 'https://openapi.emtmadrid.es/v1/mobilitylabs/user/login/'
+urlInter = 'https://openbus.emtmadrid.es:9443/emt-proxy-server/last/'
+
 
 headers = {
     'email': 'cifradoforgis@gmail.com',
-    'password': '',
-    'X-ApiKey' : '',
-    'X-ClientId' : ''
+    'password': os.environ["passwdEMT"],
+    'X-ApiKey' : os.environ["EMT_KEY"],
+    'X-ClientId' : os.environ["EMT_ClientId"],
 }
 
 req = requests.get(url, headers=headers)
@@ -15,10 +18,15 @@ req = json.loads(req.content)
 accessT = req["data"][0]["accessToken"]
 
 
-url = 'https://openapi.emtmadrid.es/v1/transport/busemtmad/stops/383/detail/'
+url = urlInter + 'bus/GetTimesLines.php'
 headers = {
-    'accessToken': accessT,
+    # 'accessToken': accessT,
+    'passKey' : os.environ["EMT_KEY"],
+    'idClient' : os.environ["EMT_ClientId"],
+    'SelectDate' : '03/12/2019',
+    'lines' : '08411'
 }
-req = requests.get(url, headers=headers)
+
+req = requests.post(url, headers=headers)
 req = json.loads(req.content)
-print(req["data"][0]["stops"][0]["name"])
+print(req)
