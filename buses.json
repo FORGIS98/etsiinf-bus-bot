@@ -1,0 +1,44 @@
+{
+    "08771":{
+        "__comment__":"bus que va desde la parada cerca de asos hacia colonia/moncloa",
+        "bus":["566","571","573"],
+        "start":"etsiinf",
+        "end":"colonia"
+    },
+    "08411":{
+        "__comment__":"bus que te deja en medio de la fi",
+        "bus":["591"],
+        "start":"etsiinf",
+        "end":"colonia"
+    },
+    "17573":{
+        "__comment__":"bus que pasa por la rotonda, el bus que esta al lado del bloque 6",
+        "bus":["865"],
+        "start":"etsiinf",
+        "end":"moncloa"
+    },
+    "08409":{
+        "__comment__":"bus de colonia jardin...",
+        "bus":["571","573","591"],
+        "start":"colonia",
+        "end":"etsiinf"
+    },
+    "15782":{
+        "__comment__":"parada cercana al metro aluche",
+        "bus":["571"],
+        "start":"aluche",
+        "end":"etsiinf"
+    },
+    "08380":{
+        "__comment__":"parada cercana al metro aluche",
+        "bus":["591"],
+        "start":"aluche",
+        "end":"etsiinf"
+    },
+    "11278":{
+        "__comment__":"parada cercana al metro moncloa",
+        "bus":["573","865"],
+        "start":"moncloa",
+        "end":"etsiinf"
+    }
+}
