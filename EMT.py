@@ -1,32 +1,51 @@
 import requests
+import shlex
 import json
-import os
 
-url = 'https://openapi.emtmadrid.es/v1/mobilitylabs/user/login/'
-urlInter = 'https://openbus.emtmadrid.es:9443/emt-proxy-server/last/'
+from subprocess import Popen, PIPE
 
+# open json files
+with open("buses.json") as f:
+    data = json.load(f)
 
-headers = {
-    'email': 'cifradoforgis@gmail.com',
-    'password': os.environ["passwdEMT"],
-    'X-ApiKey' : os.environ["EMT_KEY"],
-    'X-ClientId' : os.environ["EMT_ClientId"],
-}
-
-req = requests.get(url, headers=headers)
-req = json.loads(req.content)
-accessT = req["data"][0]["accessToken"]
+# constant url, do not change or everything stops working
+URL = "http://api.interurbanos.welbits.com/v1/stop/"
 
 
-url = urlInter + 'bus/GetTimesLines.php'
-headers = {
-    # 'accessToken': accessT,
-    'passKey' : os.environ["EMT_KEY"],
-    'idClient' : os.environ["EMT_ClientId"],
-    'SelectDate' : '03/12/2019',
-    'lines' : '08411'
-}
+def getAllBusTimes(stopNumber):
+    """Returns a dictionary with (busNumber => time) to stopNumber"""
+    busLines =  data[stopNumber]["bus"]
 
-req = requests.post(url, headers=headers)
-req = json.loads(req.content)
-print(req)
+#    comando = "lwp-request " + URL + stopNumber
+#    print("----------------->", comando)
+#    args = shlex.split(comando)
+#    proc = Popen(args, stdout=PIPE)
+#    proc = Popen(args, stderr=PIPE)
+#
+#    output = proc.communicate()
+#    print("OUTPUT :: ", output)
+
+    req = requests.get(URL + stopNumber)
+    req = json.loads(req.content)
+
+    answer = {}
+
+    for i in range (0, len(req["lines"])):
+        aux = req["lines"][i]["lineNumber"]
+        for j in range (0, len(busLines)):
+            if(aux == busLines[j]):
+                answer[busLines[j]] = req["lines"][i]["waitTime"]
+
+    return answer
+
+
+
+
+def main():
+    print("Here we go!")
+    res = getAllBusTimes("08771")
+
+    for i in res:
+        print(i, ":", res[i])
+
+main()
