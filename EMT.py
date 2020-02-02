@@ -73,12 +73,34 @@ def getColonia():
         return None
     return answer
 
+def getSpecificBus(place, busNumber):
+    """Returns a dictionary with (busNumber => time) to stopNumber"""
 
-#def main():
-#    print("Here we go!")
-#    res = getAllBusTimes("08771")
-#
-#    for i in res:
-#        print(i, ":", res[i])
-#
-#main()
+    stopNumber = 0
+    for i in data:
+        if(data[i]["start"] == place and busNumber in data[i]["bus"]):
+            stopNumber = i
+
+    req = requests.get(URL + stopNumber)
+    req = json.loads(req.content)
+
+    answer = []
+
+    for i in range (0, len(req["lines"])):
+        aux = req["lines"][i]["lineNumber"]
+        if(aux == busNumber):
+            answer.append(req["lines"][i]["waitTime"])
+
+    if(answer == []):
+        return None
+    return answer
+
+
+def main():
+    print("Here we go!")
+    res = getSpecificBus("etsiinf", "573")
+
+    for i in res:
+        print(i)
+
+main()
