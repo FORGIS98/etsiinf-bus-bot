@@ -15,12 +15,12 @@ def etsiinf():
 
     return text
 
-def colonia(update, context):
+def colonia():
     diccio = EMT.getColonia()
     text = ""
 
     if(diccio == None):
-        context.bot.send_message(chat_id=update.effective_chat.id, text="NO MORE BUSES")
+        return "NO MORE BUSES"
 
     for i in diccio:
         text += i
@@ -28,5 +28,5 @@ def colonia(update, context):
         text += diccio[i]
         text += "\n"
 
-    context.bot.send_message(chat_id=update.effective_chat.id, text=text)
+    return text
 
