@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 def start(update, context):
     keyboard = [[InlineKeyboardButton("Buses ETSIINF", callback_data='1'),
-                 InlineKeyboardButton("Buses Colinia", callback_data='2')]]
+                 InlineKeyboardButton("Buses Colonia", callback_data='2')]]
                 # [InlineKeyboardButton("Buses Moncloa", callback_data='3')]]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -26,7 +26,6 @@ def button(update, context):
         query.edit_message_text(text=controller.etsiinf())
     elif(query.data == '2'):
         query.edit_message_text(text=controller.colonia())
-
 
 def error(update, context):
     """Log Errors caused by Updates."""
