@@ -11,21 +11,31 @@ logger = logging.getLogger(__name__)
 
 
 def start(update, context):
-    keyboard = [[InlineKeyboardButton("Buses ETSIINF", callback_data='1'),
-                 InlineKeyboardButton("Buses Colonia", callback_data='2')]]
-                # [InlineKeyboardButton("Buses Moncloa", callback_data='3')]]
+    update.message.reply_text('WELCOME, THIS IS A WORK IN PROGRESS BOT')
 
+
+def transporte(update, context)
+    keyboard = [[InlineKeyboardButton("ETSIINF", callback_data='etsiinf'),
+                 InlineKeyboardButton("Colonia Jardín", callback_data='colonia jardin')],
+                [InlineKeyboardButton("Aluche", callback_data='aluche'),
+                 InlineKeyboardButton("Moncloa", callback_data='moncloa')],
+                [InlineKeyboardButton("Boadilla", callback_data='boadilla'),
+                 InlineKeyboardButton("Pozuelo", callback_data='pozuelo')]]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    update.message.reply_text('Escoge una opción:', reply_markup=reply_markup)
+    update.message.reply_text('Donde te encuentras en este momento:', reply_markup=reply_markup)
+
+def etsiinf(update, context):
+
 
 
 def button(update, context):
     query = update.callback_query
 
-    if(query.data == '1'):
+    if(query.data == 'etsiinf'):
         query.edit_message_text(text=controller.etsiinf())
-    elif(query.data == '2'):
+    elif(query.data == 'colonia jardin'):
         query.edit_message_text(text=controller.colonia())
+
 
 def error(update, context):
     """Log Errors caused by Updates."""
@@ -36,7 +46,9 @@ def main():
     updater = Updater(token=os.environ["etsiinfBOT"], use_context=True)
 
     updater.dispatcher.add_handler(CommandHandler('start', start))
-    updater.dispatcher.add_handler(CallbackQueryHandler(button))
+    updater.dispatcher.add_handler(CommandHandler('transporte', transporte))
+    updater.dispatcher.add_handler(CallbackQueryHandler(etsiinf, pattern='etsiinf'))
+
     updater.dispatcher.add_error_handler(error)
 
     updater.start_polling()
