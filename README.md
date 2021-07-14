@@ -1,4 +1,4 @@
-# Etsiinf Bus Bot
+# ETSIINF bus Bot
 This is a very basic telegram bot that gives you bus times on different stations (just thinking about the students at the ETSIINF-UPM University of Madrid)
 
 Telegram name: @theNewEtsiinfBot
