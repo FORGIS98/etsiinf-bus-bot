@@ -1,6 +1,8 @@
 # Etsiinf Bus Bot
 This is a very basic telegram bot that gives you bus times on different stations (just thinking about the students at the ETSIINF-UPM University of Madrid)
 
+Telegram name: @theNewEtsiinfBot
+
 # Stops Included
 - 08771: 
   * Buses: 566, 571, 573
