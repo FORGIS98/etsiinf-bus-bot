@@ -1,32 +1,36 @@
-import EMT
+import model
+
 
 def etsiinf():
-    diccio = EMT.getEtsiinf()
-    text = ""
-
-    if(diccio == None):
-        return "NO MORE BUSES"
-
-    for i in diccio:
-        text += i
-        text += " -> "
-        text += diccio[i]
-        text += "\n"
-
-    return text
+    return model.getEtsiinf()
 
 def colonia():
-    diccio = EMT.getColonia()
+    return model.getColonia()
+
+def aluche():
+    return model.getAluche()
+
+def moncloa():
+    return model.getMoncloa()
+
+
+options = {
+        "etsiinf": etsiinf,
+        "colonia": colonia,
+        "aluche": aluche,
+        "moncloa": moncloa
+        }
+
+def busInfo(name):
+    dic = options[name]()
     text = ""
 
-    if(diccio == None):
-        return "NO MORE BUSES"
-
-    for i in diccio:
+    for i in dic:
+        if(dic[i] == []):
+            dic[i].append("Parece que no hay buses :/")
         text += i
         text += " -> "
-        text += diccio[i]
+        text += " | ".join(dic[i])
         text += "\n"
 
     return text
-
